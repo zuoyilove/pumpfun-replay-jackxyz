@@ -302,11 +302,17 @@ export function createStrategy(p: Params = DEFAULT_PARAMS): Bot {
 
     // Prune tape trades older than the entry window plus a small margin,
     // so the reference price can still look just before the window.
+    // One splice removes the expired prefix in a single memmove; the
+    // repeated shift() this replaces cost O(prefix x tape) per batch on
+    // hot mints (up to ~800 trades inside a 45-slot window). The same
+    // prefix is removed, so the resulting tape is identical.
     const pruneBefore = now - (p.window + 5);
     for (const mint of traded) {
       const t = tapes.get(mint);
       if (t === undefined) continue;
-      while (t.trades.length > 0 && t.trades[0].slot <= pruneBefore) t.trades.shift();
+      let cut = 0;
+      while (cut < t.trades.length && t.trades[cut].slot <= pruneBefore) cut++;
+      if (cut > 0) t.trades.splice(0, cut);
     }
 
     // Orders still in flight, by mint.
