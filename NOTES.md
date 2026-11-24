@@ -20,6 +20,28 @@ may still not pay. handed_over_places: none.
 - SDK sdk/ts/makefun-bot.ts sha256 4e243d4a… identical to the sibling kit's —
   no interface adaptation needed.
 
+## Fresh rewrite (this session, commit f70f713)
+- main.ts + strategy.ts deleted unread and rewritten fresh from the spec
+  (own code structure/wording; kit SDK + pilot baseline read only).
+  No change to design parameters.
+- grade-local (process driver, this kit, commit f70f713, uncommitted at run
+  time — graded worktree files):
+  status finished, L1 reproduced true (two runs byte-identical),
+  result_sha256 bedb1c1b750d6e6b04c57e20a1a3e2307a3a21e386cc252fbe7b5e43861101b4.
+- Net PnL -0.073319 SOL (-73,319,259 lamports; exact match to the prior
+  commit's dev-window figure), return -0.73%, sharpe -0.27, max drawdown
+  1.24%, win rate 13.1%, 122 round trips, 241 fills, 0 rejected,
+  1 failed tx, 45 distinct mints, fees 0.0717 SOL + tx fees 0.0258 SOL.
+  90% interval [-0.196, +0.048] SOL. 2x-fees net -0.169 SOL.
+- Constraints compliant: true (122 round trips >= 0.01 SOL on 45 mints
+  >= 20; DD 1.24% <= 50%). Top-3 coins = 81.8% of gains.
+  Net without top 3 = -0.1488 SOL.
+- No deviations to fix: first grade-local run matched the expected numbers
+  exactly, so no implementation debugging was needed. strategy.ts was
+  revised a second time (header comment now records the grade-local
+  result + result_sha256) before commit.
+- Local Node v24.22.1 vs server harness v26.13.1 (cosmetic mismatch only).
+
 ## Design (ported from the sibling sprint's proven v1, authored fresh here)
 - Entry: curve age >= 400 slots, real SOL 2–60, window 40 slots with net
   inflow >= 0.75 SOL, >= 4 buys, >= 4 distinct buyers, price +10% over the
