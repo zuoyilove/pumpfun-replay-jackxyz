@@ -11,13 +11,17 @@
 // pacing probe keeps the run above the 20-coin guardrail when momentum
 // signals go quiet.
 //
-// Dev-window result (kit's local sim, same frozen window as the sibling
-// sprint competition): net -0.073 SOL over 24h, 241 fills, 46 coins, 122
-// round trips (16 wins), max drawdown 1.24% — far inside the 50%
-// guardrail. The pilot momentum baseline loses -9.38 SOL on the same
-// window, so this is a deliberately small-stakes, low-turnover design: the
-// final window is a fresh 24-hour draw and the edge here is survival plus
-// catching a runner, not squeezing the dev set.
+// Dev-window result (kit grade-local, process driver, this competition's
+// kit, commit e19eef0): net -0.073319 SOL over 24h, 241 fills, 45 coins,
+// 122 round trips (16 wins), max drawdown 1.24% — far inside the 50%
+// guardrail; L1 reproduced true (two runs byte-identical),
+// result_sha256 3be8766c80bf840bcdea42d7e06c4423026ed8fcae09fd0c99dfa47677bf0227.
+// The pilot momentum baseline loses -9.38 SOL on the same window, so this
+// is a deliberately small-stakes, low-turnover design: the final window is
+// a fresh 24-hour draw and the edge here is survival plus catching a
+// runner, not squeezing the dev set. The sibling sprint entry graded
+// -0.076950 SOL on the identical frozen dev window, so the two runs agree
+// within one failed-transaction draw.
 //
 // Deterministic by construction: no clock, no randomness, no environment;
 // iteration only over insertion-ordered maps fed by the batch stream.
