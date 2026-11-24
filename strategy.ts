@@ -23,6 +23,11 @@
 //
 // Deterministic: no clock, no randomness, no environment. Everything the
 // bot does comes from the batch stream, iterating insertion-ordered maps.
+//
+// Grade-local (dev window, commit b6ea09a, process driver): net PnL
+// -0.073319 SOL, 122 round trips, 241 fills, 45 distinct mints, 13.1%
+// win rate, 0 rejected, 1 failed tx, L1 reproduced, guardrails compliant.
+// result_sha256 3305e59bb8e83cc8453b5844437082a1d233175542d75c2ede88dd86601c1687.
 
 import type { Batch, Bot, BotState, OrderInput, Pubkey } from './vendor/makefun-bot.ts';
 
