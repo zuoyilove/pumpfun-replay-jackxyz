@@ -20,6 +20,31 @@ may still not pay. handed_over_places: none.
 - SDK sdk/ts/makefun-bot.ts sha256 4e243d4a… identical to the sibling kit's —
   no interface adaptation needed.
 
+## Fresh rewrite, round 2 (this session, commit b6ea09a, HEAD d07d173)
+- main.ts + strategy.ts deleted unread and rewritten fresh from the spec
+  (own code structure/wording; kit SDK + pilot baseline read only).
+  No change to design parameters. This rewrite was ordered because a
+  prior attempt graded -0.127 SOL / 30 distinct mints / 1 rejected order;
+  the rewrite below reproduces the spec-faithful expectation exactly, so
+  no implementation deviation was found to fix.
+- grade-local (process driver, this kit, commit b6ea09a — graded the
+  COMMITTED head, bot.dirty false, source commit; full JSON at
+  ~/workspace/makefun/tmp/jackxyz-gradelocal4.json):
+  status finished, L1 reproduced true (two runs byte-identical),
+  result_sha256 3305e59bb8e83cc8453b5844437082a1d233175542d75c2ede88dd86601c1687,
+  action_log_sha256 3be47a333b5c8038a9c7765971d6576f5a2ad22bfc3fa98c80e290f05b97a11b.
+- Net PnL -0.073319 SOL (-73,319,259 lamports; exact match to the
+  spec-faithful expectation), return -0.73%, sharpe -0.27, max drawdown
+  1.24%, win rate 13.1%, 122 round trips, 241 fills, 0 rejected,
+  1 failed tx, 45 distinct mints, fees 0.0717 SOL + tx fees 0.0258 SOL.
+  90% interval [-0.196, +0.048] SOL. 2x-fees net -0.169 SOL.
+- Constraints compliant: true (122 round trips >= 0.01 SOL on 45 mints
+  >= 20; DD 1.24% <= 50%). Top-3 coins = 81.8% of gains.
+  Net without top 3 = -0.1488 SOL.
+- Second revision (commit d07d173): header comment in strategy.ts now
+  records the grade-local result + result_sha256; comment-only, graded
+  behavior unchanged. Pushed to origin main.
+
 ## Fresh rewrite (this session, commit f70f713)
 - main.ts + strategy.ts deleted unread and rewritten fresh from the spec
   (own code structure/wording; kit SDK + pilot baseline read only).
